@@ -25,11 +25,11 @@ class Proyecto:
         return f"{self.nombre_usuario}|{self.repositorio}|{self.fecha_actualizacion}|{self.lenguaje}|{self.likes}|{self.tags}|{self.url}"
 
     def __str__(self):
-      return "{:<20} | {:<20} | {:<20} | {:<20} | {:<19.2f}k | {:<20} | {:<20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, self.tags, self.url)
+      return "{:<16} | {:<20} | {:<20} | {:<11} | {:<10.2f}k | {:<15} | {:<20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, self.tags, self.url)
 
 
 def cabezera_proyectos():
-    return "{:^20} | {:^20} | {:^20} | {:^20} | {:^20} | {:^20} | {:^20}".format("Nombre usuario", "Repositorio", "Fecha actualizacion", "Lenguaje", "Likes", "Tags", "URL") + "\n" + "-" * 140
+    return "{:^16} | {:^20} | {:^20} | {:^11} | {:^10} | {:^15} | {:^20}".format("Nombre usuario", "Repositorio", "Fecha actualizacion", "Lenguaje", "Likes", "Tags", "URL") + "\n" + "-" * 140
 
 
 def convertir_a_proyecto(cadena):
@@ -37,11 +37,11 @@ def convertir_a_proyecto(cadena):
     return Proyecto(
         campos[0],
         campos[1],
-        campos[2],
         campos[3],
-        float(campos[4].replace("k", "")),
-        campos[5],
-        campos[6]
+        campos[4],
+        float(campos[5].replace("k", "")),
+        campos[6],
+        campos[7]
     )
 
 
