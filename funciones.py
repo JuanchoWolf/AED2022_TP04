@@ -68,6 +68,14 @@ def dar_formato_fecha(anio, mes, dia):
     return f"{rellenar_digitos(anio, 4)}-{rellenar_digitos(mes, 2)}-{rellenar_digitos(dia, 2)}"
 
 
+def descomponer_fecha(fecha):
+    anio = int(fecha[:4])
+    mes = int(fecha[5:7])
+    dia = int(fecha[8:])
+
+    return anio, mes, dia
+
+
 def cargar_fecha():
     print("Ingrese año (AAAA)...")
     anio = validar_entre(2000, 2022)

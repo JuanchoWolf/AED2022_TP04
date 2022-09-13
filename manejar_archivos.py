@@ -1,13 +1,30 @@
+import os
+import pickle
 
-NOMBRE_ARCHIVO = "proyectos.csv"
+NOMBRE_PROY = "proyectos.csv"
+NOMBRE_POPULARES = "populares.dat"
 
-def obtener_contenido():
-    contenido = ""
 
-    # TODO: AGREGAR VERIFICACIÓN DE EXISTENCIA DE ARCHIVO
+def obtener_proyectos():
+    vec_proyectos = []
 
-    arch = open(NOMBRE_ARCHIVO, mode="rt", encoding="utf8")
-    contenido = arch.readlines()
-    arch.close()
+    if not os.path.exists(NOMBRE_PROY):
+        print("El archivo no existe")
+        return vec_proyectos # Devuelve un vector vacio
 
-    return contenido
+    arch = open(NOMBRE_PROY, mode="rt", encoding="utf8")
+    linea = None
+    primera_linea = True # Para saltar la primera linea del archivo
+
+    while linea is None or linea != "":
+        linea = arch.readline()
+        if linea != "" and not primera_linea:
+            vec_proyectos.append(linea.strip().split("|"))
+          
+        primera_linea = False
+
+    return vec_proyectos
+
+
+def guardar_populares(mat_populares):
+    pass
