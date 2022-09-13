@@ -28,8 +28,8 @@ def menu():
 def principal():
     vec_proyectos = []
     mat_populares = []
-    
-    op = 0
+
+    opc = 0
 
     while opc != 8:
       opc = menu()
