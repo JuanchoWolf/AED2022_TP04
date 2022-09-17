@@ -1,3 +1,4 @@
+from turtle import done
 from funciones import *
 
 # Consignas
@@ -32,8 +33,31 @@ def principal():
     opc = 0
 
     while opc != 8:
-      opc = menu()
-      pass
+        opc = menu()
+        
+        if opc == 1:
+            pass
+
+        elif opc == 2:
+            pass
+
+        elif opc == 3:
+            pass
+
+        elif opc == 4:
+            pass
+
+        elif opc == 5:
+            pass
+
+        elif opc == 6:
+            pass
+
+        elif opc == 7:
+            pass
+
+        else:(exit("Done!"))
+      
 
 
 if __name__ == "__main__":
