@@ -38,7 +38,6 @@ def principal():
         
         if opc == 1:
             procesados, descartados = obtener_proyectos(vec_proyectos)
-            print(vec_proyectos)
             print('\n\tTotal de Proyectos Cargados:', procesados)
             print('\tTotal de Proyectos Descartados:', descartados)
 

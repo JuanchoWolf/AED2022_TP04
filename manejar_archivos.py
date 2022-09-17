@@ -37,7 +37,6 @@ def obtener_proyectos(vec_proyectos):
         primera_linea = False
 
     arch.close()
-    print(vec_proyectos)
     return procesados, descartados
 
 

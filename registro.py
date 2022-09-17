@@ -63,6 +63,7 @@ def asignar_posicion_proyecto(proyecto, vec_proyectos):
 
                     if proyecto.repositorio[j] < (vec_proyectos[i].repositorio)[j]:
                         vec_proyectos.insert(i, proyecto)
+                        break
 
                     else:
                         pass
@@ -70,6 +71,7 @@ def asignar_posicion_proyecto(proyecto, vec_proyectos):
             elif proyecto.repositorio < vec_proyectos[i].repositorio:
                 # el registro se añade en la poscicion asignada segun orden de repositorio
                 vec_proyectos.insert(i, proyecto)
+                break
 
             elif proyecto.repositorio > vec_proyectos[i].repositorio:
                 pass
