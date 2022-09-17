@@ -1,5 +1,6 @@
 from turtle import done
 from funciones import *
+from manejar_archivos import *
 
 # Consignas
 # https://uv.frc.utn.edu.ar/mod/assign/view.php?id=192765 
@@ -36,7 +37,10 @@ def principal():
         opc = menu()
         
         if opc == 1:
-            pass
+            procesados, descartados = obtener_proyectos(vec_proyectos)
+            print(vec_proyectos)
+            print('\n\tTotal de Proyectos Cargados:', procesados)
+            print('\tTotal de Proyectos Descartados:', descartados)
 
         elif opc == 2:
             pass
