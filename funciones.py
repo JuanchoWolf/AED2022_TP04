@@ -86,3 +86,25 @@ def cargar_fecha():
     dia = validar_entre(1, fin_mes)
 
     return dar_formato_fecha(anio, mes, dia)
+
+
+def representar_diferencia(box):
+    # box = [  [lenguaje, cantidad]  ]
+    for i in range(len(box)):
+        lengugaje = box[i][0]
+        cantidad = box[i][1]
+        print( "\n__", lengugaje, "ha sido cargado", cantidad, "veces." )
+
+    return
+
+
+def ordenar_lista_listas(box: list, order=False, pointer=1):
+    """
+    ORDENAR LISTA DE LISTAS De 2 elementos
+    --------------------------------------
+    box = lista de listas\n
+    order = True(Mayor a Menor), False(Menor a Mayor)\n
+    pointer = 0 , 1 = indice de objeto a ordenar
+    """
+    box = sorted(box, key=lambda x:x[pointer], reverse=order)
+    return box

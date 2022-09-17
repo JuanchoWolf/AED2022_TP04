@@ -100,6 +100,27 @@ def comprobar_linea(linea, vec_proyectos):
         return True
 
 
+def discriminar_lenguajes(vec_proyectos):
+    # [  [lenguaje, cantidad]  ]
+    lenguajes_cantidad = []
+
+    for i in range(len(vec_proyectos)):
+        linea = vec_proyectos[i].lenguaje
+        exist = False
+
+        for j in range(len(lenguajes_cantidad)):
+            # si se encuentra en la lista lo suma
+            if linea == lenguajes_cantidad[j][0]:
+                exist = True
+                lenguajes_cantidad[j][1] += 1
+
+        # si no lo encuentra lo añade
+        if exist == False:
+            box = [linea, 1]
+            lenguajes_cantidad.append(box)
+
+    return lenguajes_cantidad
+
 
 if __name__ == "__main__":
     popularidad = Popularidad(1, 100, 10)
