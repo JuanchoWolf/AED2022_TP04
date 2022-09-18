@@ -108,3 +108,18 @@ def ordenar_lista_listas(box: list, order=False, pointer=1):
     """
     box = sorted(box, key=lambda x:x[pointer], reverse=order)
     return box
+
+
+def mostrar_por_tags(vec_proyectos, i, estrellas, saving, flag):
+    repo = vec_proyectos[i].repositorio
+    actualizacion = vec_proyectos[i].fecha_actualizacion
+
+    print("\nRepositorio: ", repo, "Actualizado por ultima vez: ", actualizacion, "Con: ", estrellas, "estrellas.")
+
+    # guardar archivo
+    if saving:
+        from manejar_archivos import saving_file_tags
+
+        saving_file_tags(vec_proyectos, i, estrellas, flag)
+
+    return True

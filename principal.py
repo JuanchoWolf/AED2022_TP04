@@ -41,7 +41,11 @@ def principal():
             print('\tTotal de Proyectos Descartados:', descartados)
 
         elif opc == 2:
-            pass
+            tag = input("\nTag que Desea Buscar:   ")
+            flag_mostrar = find_tag(tag, vec_proyectos)
+            if not flag_mostrar:
+                print('\nNo hay ningun elemento con ese Tag...\n')
+            
 
         elif opc == 3:
             # Lenguajes: A partir del vector determinar la cantidad de proyectos por cada lenguaje de programación. Mostrar los lenguajes de programación y su cantidad ordenados de mayor a menor por cantidad.
