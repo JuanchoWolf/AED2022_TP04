@@ -59,13 +59,10 @@ def saving_file_tags(vec_proyectos, i, estrellas, flag):
     cadena = f"{user}|{repo}|{actualizacion}|{lenguaje}|{likes}|{estrellas}|{tags}|{url}"
 
     if flag:
-        #print('PASA BIEN')
         archivo.write(inicial)
-        #archivo.seek(0, 2)
         archivo.write(cadena)
 
     if not flag:
-        #archivo.seek(0, 2) # desde el final
         archivo.write(cadena)
 
     archivo.close()
