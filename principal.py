@@ -1,4 +1,5 @@
 from funciones import *
+from manejar_archivos import *
 
 # Consignas
 # https://uv.frc.utn.edu.ar/mod/assign/view.php?id=192765 
@@ -32,8 +33,36 @@ def principal():
     opc = 0
 
     while opc != 8:
-      opc = menu()
-      pass
+        opc = menu()
+        
+        if opc == 1:
+            procesados, descartados = obtener_proyectos(vec_proyectos)
+            print('\n\tTotal de Proyectos Cargados:', procesados)
+            print('\tTotal de Proyectos Descartados:', descartados)
+
+        elif opc == 2:
+            pass
+
+        elif opc == 3:
+            # Lenguajes: A partir del vector determinar la cantidad de proyectos por cada lenguaje de programación. Mostrar los lenguajes de programación y su cantidad ordenados de mayor a menor por cantidad.
+            box = discriminar_lenguajes(vec_proyectos)
+            box = ordenar_lista_listas(box, True, 1)
+            representar_diferencia(box)
+
+        elif opc == 4:
+            pass
+
+        elif opc == 5:
+            pass
+
+        elif opc == 6:
+            pass
+
+        elif opc == 7:
+            pass
+
+        else:(exit("Done!"))
+      
 
 
 if __name__ == "__main__":
