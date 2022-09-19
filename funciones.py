@@ -110,9 +110,9 @@ def ordenar_lista_listas(box: list, order=False, pointer=1):
     return box
 
 
-def mostrar_por_tags(vec_proyectos, i, estrellas, saving, flag):
-    repo = vec_proyectos[i].repositorio
-    actualizacion = vec_proyectos[i].fecha_actualizacion
+def mostrar_por_tags(proyecto, estrellas, saving, flag):
+    repo = proyecto.repositorio
+    actualizacion = proyecto.fecha_actualizacion
 
     print("\nRepositorio: ", repo, "Actualizado por ultima vez: ", actualizacion, "Con: ", estrellas, "estrellas.")
 
@@ -120,6 +120,6 @@ def mostrar_por_tags(vec_proyectos, i, estrellas, saving, flag):
     if saving:
         from manejar_archivos import saving_file_tags
 
-        saving_file_tags(vec_proyectos, i, estrellas, flag)
+        saving_file_tags(proyecto, estrellas, flag)
 
     return True

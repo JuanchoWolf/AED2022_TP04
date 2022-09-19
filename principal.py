@@ -48,7 +48,6 @@ def principal():
             
 
         elif opc == 3:
-            # Lenguajes: A partir del vector determinar la cantidad de proyectos por cada lenguaje de programación. Mostrar los lenguajes de programación y su cantidad ordenados de mayor a menor por cantidad.
             box = discriminar_lenguajes(vec_proyectos)
             box = ordenar_lista_listas(box, True, 1)
             representar_diferencia(box)

@@ -1,5 +1,5 @@
 import os
-import pickle
+# import pickle
 from registro import *
 
 NOMBRE_PROY = "proyectos.csv"
@@ -44,16 +44,16 @@ def guardar_populares(mat_populares):
     pass
 
 
-def saving_file_tags(vec_proyectos, i, estrellas, flag):
+def saving_file_tags(proyecto, estrellas, flag):
     archivo = open('proyectos_por_tags.txt', mode="at", encoding="utf8") # mode= 'anexar texto'
 
-    user = vec_proyectos[i].nombre_usuario
-    repo = vec_proyectos[i].repositorio
-    actualizacion = vec_proyectos[i].fecha_actualizacion
-    lenguaje = vec_proyectos[i].lenguaje
-    tags = vec_proyectos[i].tags
-    url = vec_proyectos[i].url
-    likes = vec_proyectos[i].likes
+    user = proyecto.nombre_usuario
+    repo = proyecto.repositorio
+    actualizacion = proyecto.fecha_actualizacion
+    lenguaje = proyecto.lenguaje
+    tags = proyecto.tags
+    url = proyecto.url
+    likes = proyecto.likes
 
     inicial = "nombre_usuario | repositorio | fecha_actualizacion | lenguaje | likes | estrellas | tags | url\n"
     cadena = f"{user}|{repo}|{actualizacion}|{lenguaje}|{likes}|{estrellas}|{tags}|{url}"

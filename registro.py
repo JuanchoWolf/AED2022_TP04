@@ -157,7 +157,7 @@ def find_tag(tag, vec_proyectos):
 
             # imprimir resultados
             
-            flag_mostrar = mostrar_por_tags(vec_proyectos, i, estrellas, saving, flag_primera)
+            flag_mostrar = mostrar_por_tags(vec_proyectos[i], estrellas, saving, flag_primera)
             flag_primera = False
 
     return flag_mostrar
