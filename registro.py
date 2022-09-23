@@ -1,3 +1,6 @@
+from sys import flags
+
+
 class Popularidad:
     def __init__(self, mes, estrellas, cant_proy):
         self.mes = mes
@@ -120,6 +123,44 @@ def discriminar_lenguajes(vec_proyectos):
             lenguajes_cantidad.append(box)
 
     return lenguajes_cantidad
+
+
+def find_tag(tag, vec_proyectos):
+    from funciones import mostrar_por_tags
+    flag_primera = True
+    flag_mostrar = False
+    for i in range(len(vec_proyectos)):
+        if tag  in vec_proyectos[i].tags:
+            # determinar si desea guardar los resultados
+            if flag_primera:
+                from funciones import validar_entre
+                print("\nDesea almacenar los resultados en un archivo de texto?[ 0 = No ; 1 = Si ]")
+                opcion = validar_entre(0, 1)
+                if opcion == 1:
+                    saving = True
+                else:
+                    saving = False
+                
+
+            # determinar resultados
+
+            if int(vec_proyectos[i].likes) <= 10000: # estrellas
+                estrellas = 1
+            elif 10001 <= int(vec_proyectos[i].likes) <= 20000:
+                estrellas = 2
+            elif 20001 <= int(vec_proyectos[i].likes) <= 30000:
+                estrellas = 3
+            elif 30001 <= int(vec_proyectos[i].likes) <= 40000:
+                estrellas = 4
+            else:
+                estrellas = 5
+
+            # imprimir resultados
+            
+            flag_mostrar = mostrar_por_tags(vec_proyectos[i], estrellas, saving, flag_primera)
+            flag_primera = False
+
+    return flag_mostrar
 
 
 if __name__ == "__main__":
