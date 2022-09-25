@@ -98,16 +98,24 @@ def representar_diferencia(box):
     return
 
 
-def ordenar_lista_listas(box: list, order=False, pointer=1):
+def ordenar_lista_listas(iterable: list, index: int, upper: bool = True) -> None:
     """
-    ORDENAR LISTA DE LISTAS De 2 elementos
-    --------------------------------------
-    box = lista de listas\n
-    order = True(Mayor a Menor), False(Menor a Mayor)\n
-    pointer = 0 , 1 = indice de objeto a ordenar
+    Ordenar Listas de Listas{\n
+        iterable = lista\n
+        index = id de el objeto de las sublistas a ordenar\n
+        upper = determina si se ordena de forma Ascendente(True - por defecto), o Descentente(False)\n
+    }
     """
-    box = sorted(box, key=lambda x:x[pointer], reverse=order)
-    return box
+    long = len(iterable)
+
+    for i in range(0, long-1):
+        for j in range(i+1, long):
+
+            if iterable[i][index] < iterable[j][index] and not upper:
+                iterable[i], iterable[j] = iterable[j], iterable[i]
+
+            elif iterable[i][index] > iterable[j][index] and upper:
+                iterable[i], iterable[j] = iterable[j], iterable[i]
 
 
 def mostrar_por_tags(proyecto, estrellas, saving, flag):
