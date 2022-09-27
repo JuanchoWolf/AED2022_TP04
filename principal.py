@@ -49,7 +49,7 @@ def principal():
 
         elif opc == 3:
             box = discriminar_lenguajes(vec_proyectos)
-            box = ordenar_lista_listas(box, True, 1)
+            ordenar_lista_listas(box, 1, False)
             representar_diferencia(box)
 
         elif opc == 4:
