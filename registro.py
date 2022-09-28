@@ -1,4 +1,4 @@
-from sys import flags
+# from funciones import generar_matriz, mostrar_por_tags, descomponer_fecha
 
 
 class Popularidad:
@@ -14,6 +14,7 @@ class Popularidad:
 def cabera_popularidad():
     return "{:^6} | {:>11} | {:>10}".format("Mes", "Estrellas", "Proyectos") + "\n" + "-" * 34
 
+
 class Proyecto:
     def __init__(self, nombre_usuario, repositorio, fecha_actualizacion, lenguaje, likes, tags, url):
         self.nombre_usuario = nombre_usuario
@@ -28,79 +29,81 @@ class Proyecto:
         return f"{self.nombre_usuario}|{self.repositorio}|{self.fecha_actualizacion}|{self.lenguaje}|{self.likes}|{self.tags}|{self.url}"
 
     def __str__(self):
-      return "{:<16} | {:<20} | {:<20} | {:<11} | {:<10.2f}k | {:<15} | {:<20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, self.tags, self.url)
+        return "{:<16} | {:<20} | {:<20} | {:<11} | {:<10.2f}k | {:<15} | {:<20}".format(
+            self.nombre_usuario,
+            self.repositorio,
+            self.fecha_actualizacion,
+            self.lenguaje,
+            self.likes,
+            self.tags,
+            self.url
+            )
 
 
 def cabezera_proyectos():
-    return "{:^16} | {:^20} | {:^20} | {:^11} | {:^10} | {:^15} | {:^20}".format("Nombre usuario", "Repositorio", "Fecha actualizacion", "Lenguaje", "Likes", "Tags", "URL") + "\n" + "-" * 140
+    return "{:^16} | {:^20} | {:^20} | {:^11} | {:^10} | {:^15} | {:^20}".format(
+        "Nombre usuario",
+        "Repositorio",
+        "Fecha actualizacion",
+        "Lenguaje",
+        "Likes",
+        "Tags",
+        "URL") + "\n" + "-" * 140
 
 
-def convertir_a_proyecto(cadena):
-    campos = cadena.split("|")
+def convertir_a_proyecto(cadena, sep="|"):
+    campos = cadena.split(sep)
     return Proyecto(
         campos[0],
         campos[1],
         campos[3],
         campos[4],
         float(campos[5].replace("k", "")),
-        campos[6],
+        campos[6].split(","), # Tags
         campos[7]
     )
 
 
-def asignar_posicion_proyecto(proyecto, vec_proyectos):
-    """
-    campos: [1]= nombre_usuario
-            [2]= repositorio
-            [3]= fecha_actualizacion
-            [4]= lenguaje
-            [5]= likes
-            [6]= tags
-            [7]= url
-    """
-    long_proyect = len(vec_proyectos)
-    if long_proyect != 0:
-        for i in range(long_proyect):
-            if proyecto.repositorio == vec_proyectos[i].repositorio:
-                for j in range(len(proyecto.repositorio)):
+def busqueda_binaria(proyecto, vec_proyectos):
+    n = len(vec_proyectos)
+    izq = 0
+    der = n - 1
+    c = 0
 
-                    if proyecto.repositorio[j] < (vec_proyectos[i].repositorio)[j]:
-                        vec_proyectos.insert(i, proyecto)
-                        break
+    while izq <= der:
+        c = (izq + der) // 2
 
-                    else:
-                        pass
+        if vec_proyectos[c].repositorio.lower() == proyecto.repositorio.lower():
+            return -1 # No deben repetirse los repositorios.
+        elif vec_proyectos[c].repositorio.lower() > proyecto.repositorio.lower():
+            der = c - 1
+        else:
+            izq = c + 1
 
-            elif proyecto.repositorio < vec_proyectos[i].repositorio:
-                # el registro se añade en la poscicion asignada segun orden de repositorio
-                vec_proyectos.insert(i, proyecto)
-                break
+    if izq > der:
+        return izq
 
-            elif proyecto.repositorio > vec_proyectos[i].repositorio:
-                pass
+    return c
 
-    elif long_proyect == 0:
-        vec_proyectos.append(proyecto)
+
+def insetar_proy_ordenado(proyecto, vec_proyectos):
+    # Buscar la posición donde se debe insertar el proyecto mediante busqueda binaria
+    pos = busqueda_binaria(proyecto, vec_proyectos)
+    if pos != -1:
+        vec_proyectos[pos:pos] = [proyecto] # Inserta un proyecto en el vector de proyectos
+        return True
+
+    return False # Repetido
 
 
 def comprobar_linea(linea, vec_proyectos):
-    procesar = False
     campos = linea.split("|")
-    
+
     # lenguaje en blanco
     if campos[4] == "":
-        return procesar
-
-    else:
-        # repositorio repetido
-        long_proyect = len(vec_proyectos)
-
-        for i in range(long_proyect):
-            if campos[2] == vec_proyectos[i].repositorio:
-                return procesar
-
-        # success
-        return True
+        return False
+    
+    return True
 
 
 def discriminar_lenguajes(vec_proyectos):
@@ -125,49 +128,30 @@ def discriminar_lenguajes(vec_proyectos):
     return lenguajes_cantidad
 
 
-def find_tag(tag, vec_proyectos):
-    from funciones import mostrar_por_tags
-    flag_primera = True
-    flag_mostrar = False
-    for i in range(len(vec_proyectos)):
-        if tag  in vec_proyectos[i].tags:
-            # determinar si desea guardar los resultados
-            if flag_primera:
-                from funciones import validar_entre
-                print("\nDesea almacenar los resultados en un archivo de texto?[ 0 = No ; 1 = Si ]")
-                opcion = validar_entre(0, 1)
-                if opcion == 1:
-                    saving = True
-                else:
-                    saving = False
+def find_tag(tag, vec_proyectos): 
+    # flag_primera = True
+    # flag_mostrar = False
+    # for i in range(len(vec_proyectos)):
+    #     if tag in vec_proyectos[i].tags:
+    #         # determinar si desea guardar los resultados
+    #         if flag_primera:
                 
+    #             print("\nDesea almacenar los resultados en un archivo de texto?[ 0 = No ; 1 = Si ]")
+    #             opcion = validar_entre(0, 1)
+    #             if opcion == 1:
+    #                 saving = True
+    #             else:
+    #                 saving = False
 
-            # determinar resultados
+    #         # determinar resultados
 
-            if int(vec_proyectos[i].likes) <= 10000: # estrellas
-                estrellas = 1
-            elif 10001 <= int(vec_proyectos[i].likes) <= 20000:
-                estrellas = 2
-            elif 20001 <= int(vec_proyectos[i].likes) <= 30000:
-                estrellas = 3
-            elif 30001 <= int(vec_proyectos[i].likes) <= 40000:
-                estrellas = 4
-            else:
-                estrellas = 5
+    #         rango = obtener_rango(vec_proyectos[i].likes)
+    #         # imprimir resultados
 
-            # imprimir resultados
-            
-            flag_mostrar = mostrar_por_tags(vec_proyectos[i], estrellas, saving, flag_primera)
-            flag_primera = False
+    #         flag_mostrar = mostrar_por_tags(vec_proyectos[i], rango, saving, flag_primera)
+    #         flag_primera = False
 
-    return flag_mostrar
+    # return flag_mostrar
+    pass
 
 
-if __name__ == "__main__":
-    popularidad = Popularidad(1, 100, 10)
-    print(cabera_popularidad())
-    print(popularidad)
-
-    proyecto = Proyecto("usuario", "repositorio", "fecha", "lenguaje", 100, "tags", "url")
-    print(cabezera_proyectos())
-    print(proyecto)

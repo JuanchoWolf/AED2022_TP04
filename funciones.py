@@ -1,3 +1,9 @@
+import doctest
+
+from manejar_archivos import saving_file_tags
+from registro import Popularidad
+
+
 def validar_vacio(num):
     if num.strip() == "":
         return False
@@ -18,7 +24,7 @@ def validar_conjunto(inf, sup, num):
     return inf <= int(num) <= sup
 
 
-def validar(): # Validar que sea un numero entero positivo
+def validar():  # Validar que sea un numero entero positivo
     num = input("Ingrese un numero mayor a 0: ")
     while not validar_vacio(num) or not validar_numero(num) or not validar_positivo(num):
         print("Error...")
@@ -60,7 +66,7 @@ def rellenar_digitos(d, n):
 
 
 def generar_matriz(filas, columnas, valor):
-  return [[valor] * columnas for i in range(filas)]
+    return [[valor] * columnas for i in range(filas)]
 
 
 def dar_formato_fecha(anio, mes, dia):
@@ -93,12 +99,12 @@ def representar_diferencia(box):
     for i in range(len(box)):
         lengugaje = box[i][0]
         cantidad = box[i][1]
-        print( "\n__", lengugaje, "ha sido cargado", cantidad, "veces." )
+        print("\n__", lengugaje, "ha sido cargado", cantidad, "veces.")
 
     return
 
 
-def ordenar_lista_listas(iterable: list, index: int, upper: bool = True) -> None:
+def ordenar_lista_listas(iterable, index, upper=True):
     """
     Ordenar Listas de Listas{\n
         iterable = lista\n
@@ -122,12 +128,78 @@ def mostrar_por_tags(proyecto, estrellas, saving, flag):
     repo = proyecto.repositorio
     actualizacion = proyecto.fecha_actualizacion
 
-    print("\nRepositorio: ", repo, "Actualizado por ultima vez: ", actualizacion, "Con: ", estrellas, "estrellas.")
+    print("{:<20}|{:<20}|{:<20}".format(repo, actualizacion, estrellas))
+
+    # print("\nRepositorio: ", repo, "Actualizado por ultima vez: ",
+    #       actualizacion, "Con: ", estrellas, "estrellas.")
 
     # guardar archivo
     if saving:
-        from manejar_archivos import saving_file_tags
-
         saving_file_tags(proyecto, estrellas, flag)
 
     return True
+
+
+def obtener_rangos():
+    # Rango - Min - Max
+    return [
+        (1, None, 10),
+        (2, 10.1, 20),
+        (3, 20.1, 30),
+        (4, 30.1, 40),
+        (5, 40.1, None),
+    ]
+
+
+def obtener_rango(estrellas):
+    """
+        >>> obtener_rango(1)
+        1
+        >>> obtener_rango(10)
+        1
+        >>> obtener_rango(10.1)
+        2
+        >>> obtener_rango(20)
+        2
+        >>> obtener_rango(100)
+        5
+    """
+    rangos = obtener_rangos()
+
+    for rango in rangos:
+        if rango[1] is None:
+            if estrellas <= rango[2]:
+                return rango[0]
+        elif rango[2] is None:
+            if estrellas >= rango[1]:
+                return rango[0]
+        else:
+            if rango[1] <= estrellas <= rango[2]:
+                return rango[0]
+
+
+def obtener_resumen_popularidad(proyectos):
+    mat = generar_matriz(12, 5, 0)
+
+    for proy in proyectos:
+        mes_act = descomponer_fecha(proy.fecha_actualizacion)[1]
+        rango = obtener_rango(proy.likes)
+
+        mat[mes_act - 1][rango - 1] += 1
+
+    return mat
+
+
+def resumen_popularidad_a_registro(mat):
+    registro = []
+
+    for i in range(len(mat)):
+        for j in range(len(mat[i])):
+            if mat[i][j] != 0:
+                p = Popularidad(i+1, j+1, mat[i][j])
+                registro.append(p)
+    return registro 
+
+
+if __name__ == "__main__":
+    doctest.testmod()
