@@ -122,7 +122,6 @@ def principal():
 
             print('\n\tTotal de Proyectos Cargados:', procesados)
             print('\tTotal de Proyectos Descartados:', descartados)
-            input("\nPulse enter para continuar...")
 
         elif len(vec_proyectos) > 0:
             if opc == 2:
@@ -146,11 +145,10 @@ def principal():
             input("\nPulse enter para continuar...")
         elif opc == 7:
             opcion7(mat_populares)
-            input("\nPulse enter para continuar...")
-
         else:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
-            input("\nPulse enter para continuar...")
+    
+        input("\nPulse enter para continuar...")
 
 
 if __name__ == "__main__":
