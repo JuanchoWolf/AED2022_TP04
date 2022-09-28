@@ -14,10 +14,10 @@ def solicitar_cadena(mensaje):
     return cadena
 
 
-def validar_vacio(num):
-    if num.strip() == "":
+def validar_vacio(x):
+    if x.strip() == "":
         return False
-    return num
+    return x
 
 
 def validar_numero(num):

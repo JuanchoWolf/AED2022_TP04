@@ -75,9 +75,7 @@ def opcion_5(vec_proy, repo):
             print(cabezera_proyectos())
             print(vec_proy[i])
             print()
-            nueva_url = validar_vacio(input("Ingrese nueva URL: "))
-            while not nueva_url:
-                nueva_url = validar_vacio(input("Ingrese nueva URL: "))
+            nueva_url = solicitar_cadena("Ingrese nueva URL: ")
             vec_proy[i].url = nueva_url
             vec_proy[i].fecha_actualizacion = str(fecha_hoy())
             print(vec_proy[i])
@@ -129,32 +127,27 @@ def principal():
         elif len(vec_proyectos) > 0:
             if opc == 2:
                 opcion2(vec_proyectos)
-                input("\nPulse enter para continuar...")
 
             elif opc == 3:
                 box = discriminar_lenguajes(vec_proyectos)
                 ordenar_lista_listas(box, 1, False)
                 representar_diferencia(box)
-                input("\nPulse enter para continuar...")
 
             elif opc == 4:
                 opcion4(mat_populares, vec_proyectos)
-                input("\nPulse enter para continuar...")
 
             elif opc == 5:
-                rep = validar_vacio(input("\nIngrese nombre del repositorio buscado: "))
-                while not rep:
-                    rep = validar_vacio(input("\nIngrese nombre del repositorio buscado: "))
+                rep = solicitar_cadena("Ingrese nombre del repositorio buscado: ")
                 opcion_5(vec_proyectos, rep)
-                input("\nPulse enter para continuar...")
 
             elif opc == 6:
                 opcion6(mat_populares)
-                input("\nPulse enter para continuar...")
 
+            input("\nPulse enter para continuar...")
         elif opc == 7:
             opcion7(mat_populares)
             input("\nPulse enter para continuar...")
+
         else:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
             input("\nPulse enter para continuar...")
