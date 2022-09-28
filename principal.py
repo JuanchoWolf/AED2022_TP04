@@ -59,6 +59,12 @@ def opcion2(vec_proyectos):
         print('\nNo hay ningun elemento con ese Tag...\n')
 
 
+def opcion3(vec_proyectos):
+    box = discriminar_lenguajes(vec_proyectos)
+    ordenar_lista_listas(box, 1, False)
+    representar_diferencia(box)
+
+
 def opcion4(mat_populares, vec_proyectos):
     mat_populares = obtener_resumen_popularidad(vec_proyectos)
     mostrar_matriz_popularidad(mat_populares)
@@ -130,9 +136,7 @@ def principal():
                 opcion2(vec_proyectos)
 
             elif opc == 3:
-                box = discriminar_lenguajes(vec_proyectos)
-                ordenar_lista_listas(box, 1, False)
-                representar_diferencia(box)
+                opcion3(vec_proyectos)
 
             elif opc == 4:
                 opcion4(mat_populares, vec_proyectos)
