@@ -104,10 +104,13 @@ def cargar_fecha():
 
 def representar_diferencia(box):
     # box = [  [lenguaje, cantidad]  ]
+    print("{:20} | {:10}".format("Lenguaje", "Cantidad"))
+    print("-" * 32)
+
     for i in range(len(box)):
         lengugaje = box[i][0]
         cantidad = box[i][1]
-        print("\n__", lengugaje, "ha sido cargado", cantidad, "veces.")
+        print("{:<20} | {:>10}".format(lengugaje, cantidad))
 
     return
 

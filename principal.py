@@ -62,6 +62,7 @@ def opcion2(vec_proyectos):
 def opcion3(vec_proyectos):
     pass
 
+
 def opcion4(mat_populares, vec_proyectos):
     mat_populares = obtener_resumen_popularidad(vec_proyectos)
     mostrar_matriz_popularidad(mat_populares)
@@ -95,6 +96,7 @@ def opcion7(mat_populares):
     mat_populares = mat
     mostrar_matriz_popularidad(mat_populares)
 
+
 def principal():
     vec_proyectos = []
     mat_populares = []
@@ -103,15 +105,19 @@ def principal():
 
     while opc != 8:
         opc = menu()
-    
-        if opc == 8:
-            print("Hasta luego!")
-            return
-        elif opc == 1:
-            procesados, descartados = obtener_proyectos(vec_proyectos)
 
+        if opc == 1:
+            procesados, descartados = obtener_proyectos(vec_proyectos)
             print('\n\tTotal de Proyectos Cargados:', procesados)
             print('\tTotal de Proyectos Descartados:', descartados)
+
+        elif opc == 7:
+            opcion7(mat_populares)
+
+        elif opc == 8:
+            print("Hasta luego!")
+            return
+
         elif len(vec_proyectos) > 0:
             if opc == 2:
                 opcion2(vec_proyectos)
@@ -127,9 +133,6 @@ def principal():
 
             elif opc == 6:
                 opcion6(mat_populares)
-
-        elif opc == 7:
-            opcion7(mat_populares)
         else:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
 
