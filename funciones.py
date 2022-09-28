@@ -2,6 +2,8 @@ import doctest
 from manejar_archivos import saving_file_tags, NOMBRE_TAGS
 import os
 from registro import Popularidad
+from datetime import date
+
 
 def solicitar_cadena(mensaje):
     cadena = input(mensaje)
@@ -15,7 +17,7 @@ def solicitar_cadena(mensaje):
 def validar_vacio(num):
     if num.strip() == "":
         return False
-    return True
+    return num
 
 
 def validar_numero(num):
@@ -104,13 +106,10 @@ def cargar_fecha():
 
 def representar_diferencia(box):
     # box = [  [lenguaje, cantidad]  ]
-    print("{:20} | {:10}".format("Lenguaje", "Cantidad"))
-    print("-" * 32)
-
     for i in range(len(box)):
         lengugaje = box[i][0]
         cantidad = box[i][1]
-        print("{:<20} | {:>10}".format(lengugaje, cantidad))
+        print("\n__", lengugaje, "ha sido cargado", cantidad, "veces.")
 
     return
 
@@ -203,6 +202,11 @@ def guardar_resultados_busqueda_tags(vector, saving):
             return
 
     saving_file_tags(vector)
+
+
+def fecha_hoy():
+    return date.today()
+
 
 if __name__ == "__main__":
     doctest.testmod()
