@@ -105,13 +105,13 @@ def cargar_fecha():
 
 
 def representar_diferencia(box):
-    # box = [  [lenguaje, cantidad]  ]
+    print("{:<20} | {:<20}".format("Lenguaje", "Cantidad"))
+    print("-"*40)
+
     for i in range(len(box)):
         lengugaje = box[i][0]
         cantidad = box[i][1]
-        print("\n__", lengugaje, "ha sido cargado", cantidad, "veces.")
-
-    return
+        print("{:<20} | {:<20}".format(lengugaje, cantidad))
 
 
 def ordenar_lista_listas(iterable, index, upper=True):

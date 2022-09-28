@@ -87,7 +87,6 @@ def opcion_5(vec_proy, repo):
             print(vec_proy[i])
             return
     print("\nNo se encontro el repositorio...")
-    return
 
 
 def opcion6(mat_populares):
@@ -102,6 +101,11 @@ def opcion6(mat_populares):
 def opcion7(mat_populares):
     print("\nLeyendo archivo...")
     pops = leer_populares()
+
+    if len(pops) == 0:
+        print("\nNo se ha guardado el resumen de popularidad. Vaya a la opcion 6")
+        return
+
     mat = generar_matriz(12, 5, 0)
 
     for pop in pops:
@@ -146,7 +150,6 @@ def principal():
             elif opc == 6:
                 opcion6(mat_populares)
 
-            input("\nPulse enter para continuar...")
         elif opc == 7:
             opcion7(mat_populares)
         else:
