@@ -29,18 +29,18 @@ class Proyecto:
         return f"{self.nombre_usuario}|{self.repositorio}|{self.fecha_actualizacion}|{self.lenguaje}|{self.likes}|{','.join(self.tags)}|{self.url}"
 
     def __str__(self):
-        return "{:<16} | {:<20} | {:<12} | {:<11} | {:<5.2f}k | {:<15} | {:<20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, ", ".join(self.tags), self.url)
+        return "{:^16} | {:^20} | {:^12} | {:^11} | {:^5.2f}k | {:^60} | {:^20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, ", ".join(self.tags), self.url)
 
 
 def cabezera_proyectos():
-    return "{:^16} | {:^20} | {:^12} | {:^11} | {:^6} | {:^15} | {:^20}".format(
+    return "{:^16} | {:^20} | {:^12} | {:^11} | {:^7} | {:^60} | {:^20}".format(
         "Nombre usuario",
         "Repositorio",
         "Fecha Act.",
         "Lenguaje",
         "Likes",
         "Tags",
-        "URL") + "\n" + "-" * 140
+        "URL") + "\n" + "-" * 180
 
 
 def convertir_a_proyecto(cadena, sep="|"):
@@ -114,7 +114,7 @@ def discriminar_lenguajes(vec_proyectos):
                 lenguajes_cantidad[j][1] += 1
 
         # si no lo encuentra lo añade
-        if exist == False:
+        if not exist:
             box = [linea, 1]
             lenguajes_cantidad.append(box)
 

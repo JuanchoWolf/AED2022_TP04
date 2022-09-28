@@ -59,10 +59,6 @@ def opcion2(vec_proyectos):
         print('\nNo hay ningun elemento con ese Tag...\n')
 
 
-def opcion3(vec_proyectos):
-    pass
-
-
 def opcion4(mat_populares, vec_proyectos):
     mat_populares = obtener_resumen_popularidad(vec_proyectos)
     mostrar_matriz_popularidad(mat_populares)
@@ -72,8 +68,22 @@ def opcion4(mat_populares, vec_proyectos):
     print("\nLa suma de popularidad del mes {} es: {}".format(mes + 1, sum(mat_populares[mes])))
 
 
-def opcion5(vec_proyectos):
-    pass
+def opcion_5(vec_proy, repo):
+    n = len(vec_proy)
+    for i in range(n):
+        if vec_proy[i].repositorio == repo:
+            print(cabezera_proyectos())
+            print(vec_proy[i])
+            print()
+            nueva_url = validar_vacio(input("Ingrese nueva URL: "))
+            while not nueva_url:
+                nueva_url = validar_vacio(input("Ingrese nueva URL: "))
+            vec_proy[i].url = nueva_url
+            vec_proy[i].fecha_actualizacion = str(fecha_hoy())
+            print(vec_proy[i])
+            return
+    print("\nNo se encontro el repositorio...")
+    return
 
 
 def opcion6(mat_populares):
@@ -105,36 +115,49 @@ def principal():
 
     while opc != 8:
         opc = menu()
-
-        if opc == 1:
-            procesados, descartados = obtener_proyectos(vec_proyectos)
-            print('\n\tTotal de Proyectos Cargados:', procesados)
-            print('\tTotal de Proyectos Descartados:', descartados)
-
-        elif opc == 7:
-            opcion7(mat_populares)
-
-        elif opc == 8:
+    
+        if opc == 8:
             print("Hasta luego!")
             return
+        elif opc == 1:
+            procesados, descartados = obtener_proyectos(vec_proyectos)
+
+            print('\n\tTotal de Proyectos Cargados:', procesados)
+            print('\tTotal de Proyectos Descartados:', descartados)
+            input("\nPulse enter para continuar...")
 
         elif len(vec_proyectos) > 0:
             if opc == 2:
                 opcion2(vec_proyectos)
+                input("\nPulse enter para continuar...")
+
             elif opc == 3:
                 box = discriminar_lenguajes(vec_proyectos)
                 ordenar_lista_listas(box, 1, False)
                 representar_diferencia(box)
+                input("\nPulse enter para continuar...")
 
             elif opc == 4:
                 opcion4(mat_populares, vec_proyectos)
+                input("\nPulse enter para continuar...")
+
             elif opc == 5:
-                pass
+                rep = validar_vacio(input("\nIngrese nombre del repositorio buscado: "))
+                while not rep:
+                    rep = validar_vacio(input("\nIngrese nombre del repositorio buscado: "))
+                opcion_5(vec_proyectos, rep)
+                input("\nPulse enter para continuar...")
 
             elif opc == 6:
                 opcion6(mat_populares)
+                input("\nPulse enter para continuar...")
+
+        elif opc == 7:
+            opcion7(mat_populares)
+            input("\nPulse enter para continuar...")
         else:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
+            input("\nPulse enter para continuar...")
 
 
 if __name__ == "__main__":
