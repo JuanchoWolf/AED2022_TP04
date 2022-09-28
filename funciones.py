@@ -1,7 +1,15 @@
 import doctest
-
-from manejar_archivos import saving_file_tags
+from manejar_archivos import saving_file_tags, NOMBRE_TAGS
+import os
 from registro import Popularidad
+
+def solicitar_cadena(mensaje):
+    cadena = input(mensaje)
+    while not validar_vacio(cadena):
+        print("Error...")
+        cadena = input(mensaje)
+
+    return cadena
 
 
 def validar_vacio(num):
@@ -124,22 +132,6 @@ def ordenar_lista_listas(iterable, index, upper=True):
                 iterable[i], iterable[j] = iterable[j], iterable[i]
 
 
-def mostrar_por_tags(proyecto, estrellas, saving, flag):
-    repo = proyecto.repositorio
-    actualizacion = proyecto.fecha_actualizacion
-
-    print("{:<20}|{:<20}|{:<20}".format(repo, actualizacion, estrellas))
-
-    # print("\nRepositorio: ", repo, "Actualizado por ultima vez: ",
-    #       actualizacion, "Con: ", estrellas, "estrellas.")
-
-    # guardar archivo
-    if saving:
-        saving_file_tags(proyecto, estrellas, flag)
-
-    return True
-
-
 def obtener_rangos():
     # Rango - Min - Max
     return [
@@ -200,6 +192,14 @@ def resumen_popularidad_a_registro(mat):
                 registro.append(p)
     return registro 
 
+
+def guardar_resultados_busqueda_tags(vector, saving):
+    if os.path.exists(NOMBRE_TAGS):
+        print("El archivo ya existe, desea sobreescribirlo? (si:1 - no:2)")
+        if validar_entre(1, 2) == 2:
+            return
+
+    saving_file_tags(vector)
 
 if __name__ == "__main__":
     doctest.testmod()

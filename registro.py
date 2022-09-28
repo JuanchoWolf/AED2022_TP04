@@ -26,25 +26,17 @@ class Proyecto:
         self.url = url
 
     def formato_archivo(self):
-        return f"{self.nombre_usuario}|{self.repositorio}|{self.fecha_actualizacion}|{self.lenguaje}|{self.likes}|{self.tags}|{self.url}"
+        return f"{self.nombre_usuario}|{self.repositorio}|{self.fecha_actualizacion}|{self.lenguaje}|{self.likes}|{','.join(self.tags)}|{self.url}"
 
     def __str__(self):
-        return "{:<16} | {:<20} | {:<20} | {:<11} | {:<10.2f}k | {:<15} | {:<20}".format(
-            self.nombre_usuario,
-            self.repositorio,
-            self.fecha_actualizacion,
-            self.lenguaje,
-            self.likes,
-            self.tags,
-            self.url
-            )
+        return "{:<16} | {:<20} | {:<12} | {:<11} | {:<5.2f}k | {:<15} | {:<20}".format(self.nombre_usuario, self.repositorio, self.fecha_actualizacion, self.lenguaje, self.likes, ", ".join(self.tags), self.url)
 
 
 def cabezera_proyectos():
-    return "{:^16} | {:^20} | {:^20} | {:^11} | {:^10} | {:^15} | {:^20}".format(
+    return "{:^16} | {:^20} | {:^12} | {:^11} | {:^6} | {:^15} | {:^20}".format(
         "Nombre usuario",
         "Repositorio",
-        "Fecha actualizacion",
+        "Fecha Act.",
         "Lenguaje",
         "Likes",
         "Tags",
@@ -59,7 +51,7 @@ def convertir_a_proyecto(cadena, sep="|"):
         campos[3],
         campos[4],
         float(campos[5].replace("k", "")),
-        campos[6].split(","), # Tags
+        campos[6].split(","),  # Tags
         campos[7]
     )
 
@@ -74,7 +66,7 @@ def busqueda_binaria(proyecto, vec_proyectos):
         c = (izq + der) // 2
 
         if vec_proyectos[c].repositorio.lower() == proyecto.repositorio.lower():
-            return -1 # No deben repetirse los repositorios.
+            return -1  # No deben repetirse los repositorios.
         elif vec_proyectos[c].repositorio.lower() > proyecto.repositorio.lower():
             der = c - 1
         else:
@@ -90,10 +82,11 @@ def insetar_proy_ordenado(proyecto, vec_proyectos):
     # Buscar la posición donde se debe insertar el proyecto mediante busqueda binaria
     pos = busqueda_binaria(proyecto, vec_proyectos)
     if pos != -1:
-        vec_proyectos[pos:pos] = [proyecto] # Inserta un proyecto en el vector de proyectos
+        # Inserta un proyecto en el vector de proyectos
+        vec_proyectos[pos:pos] = [proyecto]
         return True
 
-    return False # Repetido
+    return False  # Repetido
 
 
 def comprobar_linea(linea, vec_proyectos):
@@ -102,7 +95,7 @@ def comprobar_linea(linea, vec_proyectos):
     # lenguaje en blanco
     if campos[4] == "":
         return False
-    
+
     return True
 
 
@@ -128,30 +121,10 @@ def discriminar_lenguajes(vec_proyectos):
     return lenguajes_cantidad
 
 
-def find_tag(tag, vec_proyectos): 
-    # flag_primera = True
-    # flag_mostrar = False
-    # for i in range(len(vec_proyectos)):
-    #     if tag in vec_proyectos[i].tags:
-    #         # determinar si desea guardar los resultados
-    #         if flag_primera:
-                
-    #             print("\nDesea almacenar los resultados en un archivo de texto?[ 0 = No ; 1 = Si ]")
-    #             opcion = validar_entre(0, 1)
-    #             if opcion == 1:
-    #                 saving = True
-    #             else:
-    #                 saving = False
+def buscar_por_tag(tag, vec_proyectos):
+    coincidencias = []
+    for i in range(len(vec_proyectos)):
+        if tag in vec_proyectos[i].tags:
+            coincidencias.append(vec_proyectos[i])
 
-    #         # determinar resultados
-
-    #         rango = obtener_rango(vec_proyectos[i].likes)
-    #         # imprimir resultados
-
-    #         flag_mostrar = mostrar_por_tags(vec_proyectos[i], rango, saving, flag_primera)
-    #         flag_primera = False
-
-    # return flag_mostrar
-    pass
-
-
+    return coincidencias

@@ -4,6 +4,7 @@ from registro import *
 
 NOMBRE_PROY = "proyectos.csv"
 NOMBRE_POPULARES = "populares.dat"
+NOMBRE_TAGS = "proyectos_por_tags.txt"
 
 
 def obtener_proyectos(vec_proyectos):
@@ -57,26 +58,13 @@ def leer_populares():
     return vec_pops
 
 
-def saving_file_tags(proyecto, estrellas, flag):
-    archivo = open('proyectos_por_tags.txt', mode="at", encoding="utf8") # mode= 'anexar texto'
+def saving_file_tags(vec_proyectos):
+    archivo = open(NOMBRE_TAGS, mode="wt", encoding="utf8")
 
-    user = proyecto.nombre_usuario
-    repo = proyecto.repositorio
-    actualizacion = proyecto.fecha_actualizacion
-    lenguaje = proyecto.lenguaje
-    tags = proyecto.tags
-    url = proyecto.url
-    likes = proyecto.likes
+    archivo.write("nombre_usuario|repositorio|fecha_actualizacion|lenguaje|likes|estrellas|tags|url\n")
 
-    inicial = "nombre_usuario | repositorio | fecha_actualizacion | lenguaje | likes | estrellas | tags | url\n"
-    cadena = f"{user}|{repo}|{actualizacion}|{lenguaje}|{likes}|{estrellas}|{tags}|{url}"
-
-    if flag:
-        archivo.write(inicial)
-        archivo.write(cadena)
-
-    if not flag:
-        archivo.write(cadena)
+    for i in range(len(vec_proyectos)):
+        archivo.write(vec_proyectos[i].formato_archivo())
 
     archivo.close()
 
