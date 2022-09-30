@@ -1,10 +1,10 @@
-import doctest
 from manejar_archivos import saving_file_tags, NOMBRE_TAGS
 import os
 from registro import Popularidad
 from datetime import date
 
 
+# Para validar posibles errores en un input de cadena de caracteres
 def solicitar_cadena(mensaje):
     cadena = input(mensaje)
     while not validar_vacio(cadena):
@@ -14,27 +14,32 @@ def solicitar_cadena(mensaje):
     return cadena
 
 
+# Verificar que no sea un elemento vacio
 def validar_vacio(x):
     if x.strip() == "":
         return False
     return x
 
 
+# Verificar que sea un caracter numerico
 def validar_numero(num):
     if num.isdigit():
         return True
     return False
 
 
+# Verificar que el numero sea mayor a cero
 def validar_positivo(num):
     return int(num) > 0
 
 
+# Verificar que el numero este dentro del conjunto
 def validar_conjunto(inf, sup, num):
     return inf <= int(num) <= sup
 
 
-def validar():  # Validar que sea un numero entero positivo
+# Validar que sea un numero, entero y positivo
+def validar():
     num = input("Ingrese un numero mayor a 0: ")
     while not validar_vacio(num) or not validar_numero(num) or not validar_positivo(num):
         print("Error...")
@@ -43,6 +48,7 @@ def validar():  # Validar que sea un numero entero positivo
     return int(num)
 
 
+# Determinar que un input sea correcto entre 2 extremos
 def validar_entre(inf, sup):
     num = input(f"Ingrese un numero entre {inf} y {sup}: ")
     while not validar_vacio(num) or not validar_numero(num) or not validar_conjunto(inf, sup, num):
@@ -52,36 +58,8 @@ def validar_entre(inf, sup):
     return int(num)
 
 
-def es_anio_bisiesto(anio):
-    return anio % 4 == 0 and anio % 100 != 0 or anio % 400 == 0
-
-
-def obtener_dias_por_mes_y_anio(mes, anio):
-    if mes in (1, 3, 5, 7, 8, 10, 12):  # meses con 31 dias
-        return 31
-    elif mes in (4, 6, 9, 11):  # meses con 30 dias
-        return 30
-    elif es_anio_bisiesto(anio):
-        return 29
-    else:
-        return 28
-
-
-def rellenar_digitos(d, n):
-    cad = str(d)
-    while len(cad) < n:
-        cad = "0" + cad
-
-    return cad
-
-
 def generar_matriz(filas, columnas, valor):
     return [[valor] * columnas for i in range(filas)]
-
-
-def dar_formato_fecha(anio, mes, dia):
-    # FORMATO: AAAA-MM-DD
-    return f"{rellenar_digitos(anio, 4)}-{rellenar_digitos(mes, 2)}-{rellenar_digitos(dia, 2)}"
 
 
 def descomponer_fecha(fecha):
@@ -92,26 +70,14 @@ def descomponer_fecha(fecha):
     return anio, mes, dia
 
 
-def cargar_fecha():
-    print("Ingrese año (AAAA)...")
-    anio = validar_entre(2000, 2022)
-    print("Ingrese mes (MM)...")
-    mes = validar_entre(1, 12)
-    print("Ingrese dia (DD)...")
-    fin_mes = obtener_dias_por_mes_y_anio(mes, anio)
-    dia = validar_entre(1, fin_mes)
-
-    return dar_formato_fecha(anio, mes, dia)
-
-
 def representar_diferencia(box):
-    # box = [  [lenguaje, cantidad]  ]
+    print("{:<20} | {:<20}".format("Lenguaje", "Cantidad"))
+    print("-"*40)
+
     for i in range(len(box)):
         lengugaje = box[i][0]
         cantidad = box[i][1]
-        print("\n__", lengugaje, "ha sido cargado", cantidad, "veces.")
-
-    return
+        print("{:<20} | {:<20}".format(lengugaje, cantidad))
 
 
 def ordenar_lista_listas(iterable, index, upper=True):
@@ -195,7 +161,7 @@ def resumen_popularidad_a_registro(mat):
     return registro 
 
 
-def guardar_resultados_busqueda_tags(vector, saving):
+def guardar_resultados_busqueda_tags(vector):
     if os.path.exists(NOMBRE_TAGS):
         print("El archivo ya existe, desea sobreescribirlo? (si:1 - no:2)")
         if validar_entre(1, 2) == 2:
@@ -204,9 +170,6 @@ def guardar_resultados_busqueda_tags(vector, saving):
     saving_file_tags(vector)
 
 
+# Obtener fecha actualizada
 def fecha_hoy():
     return date.today()
-
-
-if __name__ == "__main__":
-    doctest.testmod()

@@ -10,11 +10,11 @@ NOMBRE_TAGS = "proyectos_por_tags.txt"
 def obtener_proyectos(vec_proyectos):
     if not os.path.exists(NOMBRE_PROY):
         print("El archivo no existe")
-        return 0, 0 # Devuelve un vector vacio
+        return 0, 0  # Devuelve un vector vacio
 
     arch = open(NOMBRE_PROY, mode="rt", encoding="utf8")
     linea = None
-    primera_linea = True # Para saltar la primera linea del archivo
+    primera_linea = True  # Para saltar la primera linea del archivo
 
     descartados = 0
 
@@ -23,7 +23,7 @@ def obtener_proyectos(vec_proyectos):
         
         if linea != "" and not primera_linea:
             proy = convertir_a_proyecto(linea)
-            if not (comprobar_linea(linea, vec_proyectos) and insetar_proy_ordenado(proy, vec_proyectos)):
+            if not (comprobar_linea(linea) and insetar_proy_ordenado(proy, vec_proyectos)):
                 descartados += 1
 
         primera_linea = False
@@ -67,10 +67,3 @@ def saving_file_tags(vec_proyectos):
         archivo.write(vec_proyectos[i].formato_archivo())
 
     archivo.close()
-
-
-if __name__ == "__main__":
-    v = obtener_proyectos()
-    print(cabezera_proyectos())
-    for p in v:
-        print(p)

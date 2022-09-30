@@ -89,7 +89,7 @@ def insetar_proy_ordenado(proyecto, vec_proyectos):
     return False  # Repetido
 
 
-def comprobar_linea(linea, vec_proyectos):
+def comprobar_linea(linea):
     campos = linea.split("|")
 
     # lenguaje en blanco
