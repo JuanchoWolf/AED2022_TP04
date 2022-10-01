@@ -55,22 +55,7 @@ def opcion3(vec_proyectos):
     representar_diferencia(box)
 
 
-# Mostrar tabla de popularidad
-def mostrar_matriz_popularidad(mat):
-    print("Resumen de Popularidad")
-    print("{:3}|{:^50}".format(" ", "Estrellas"))
-    print("{:3}|{:^10}|{:^10}|{:^10}|{:^10}|{:^10}".format("Mes", "0-10", "10-20", "20-30", "30-40", "+40️"))
-    print("-" * 60)
-
-    for i in range(len(mat)):
-        print("{:3}|".format(i + 1), end="")
-        for j in range(len(mat[i])):
-            print("{:10}|".format(mat[i][j]), end="")
-        print()
-
-
-# Solicitar tabla de popularidad y mes requerido
-def opcion4(vec_proyectos):
+def opcion4(mat_populares, vec_proyectos):
     mat_populares = obtener_resumen_popularidad(vec_proyectos)
     mostrar_matriz_popularidad(mat_populares)
 
