@@ -172,4 +172,18 @@ def guardar_resultados_busqueda_tags(vector):
 
 # Obtener fecha actualizada
 def fecha_hoy():
-    return date.today()
+    return date.today().strftime("%Y-%m-%d")
+
+
+# Mostrar tabla de popularidad
+def mostrar_matriz_popularidad(mat):
+    print("Resumen de Popularidad")
+    print("{:3}|{:^50}".format(" ", "Estrellas"))
+    print("{:3}|{:^10}|{:^10}|{:^10}|{:^10}|{:^10}".format("Mes", "0-10", "10-20", "20-30", "30-40", "+40️"))
+    print("-" * 60)
+
+    for i in range(len(mat)):
+        print("{:3}|".format(i + 1), end="")
+        for j in range(len(mat[i])):
+            print("{:10}|".format(mat[i][j]), end="")
+        print()

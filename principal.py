@@ -67,18 +67,27 @@ def opcion4(mat_populares, vec_proyectos):
 
 # Buscar por repositorio y actualizar URL y fecha
 def opcion_5(vec_proy, repo):
+    c = 0
     n = len(vec_proy)
-    for i in range(n):
-        if vec_proy[i].repositorio == repo:
-            print(cabezera_proyectos())
-            print(vec_proy[i])
-            print()
-            nueva_url = solicitar_cadena("Ingrese nueva URL: ")
-            vec_proy[i].url = nueva_url
-            vec_proy[i].fecha_actualizacion = str(fecha_hoy())
-            print(vec_proy[i])
+    izq = 0
+    der = n - 1
+
+    while izq <= der:
+        c = (izq + der) // 2
+        if vec_proy[c].repositorio.lower() == repo.lower():
+            print("\nSe ha encontrado el proyecto {} en la posicion {}".format(repo, c+1))
+            print("Ingrese la nueva URL del proyecto: ")
+            vec_proy[c].url = solicitar_cadena("URL: ")
+            vec_proy[c].fecha_actualizacion = fecha_hoy()
+            print("Se ha actualizado el proyecto")
             return
-    print("\nNo se encontro el repositorio...")
+        elif repo.lower() < vec_proy[c].repositorio.lower():
+            der = c - 1
+        else:
+            izq = c + 1
+
+    if izq > der:
+        print("\nNo se ha encontrado el proyecto {} en el vector".format(repo))
 
 
 # Guardar tabla de popularidad en archivo
@@ -122,29 +131,24 @@ def principal():
             return
         elif opc == 1:
             procesados, descartados = obtener_proyectos(vec_proyectos)
-
+            for i in range(len(vec_proyectos)):
+                print(i+1, vec_proyectos[i].repositorio)
             print('\n\tTotal de Proyectos Cargados:', procesados)
             print('\tTotal de Proyectos Descartados:', descartados)
-
+        elif opc == 7:
+            opcion7()
         elif len(vec_proyectos) > 0:
             if opc == 2:
                 opcion2(vec_proyectos)
-
             elif opc == 3:
                 opcion3(vec_proyectos)
-
             elif opc == 4:
                 mat_populares = opcion4(vec_proyectos)
-
             elif opc == 5:
                 rep = solicitar_cadena("Ingrese nombre del repositorio buscado: ")
                 opcion_5(vec_proyectos, rep)
-
             elif opc == 6:
                 opcion6(mat_populares)
-
-        if opc == 7:
-            opcion7()
 
         elif len(vec_proyectos) == 0:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
