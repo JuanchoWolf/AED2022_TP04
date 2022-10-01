@@ -7,7 +7,7 @@ from manejar_archivos import *
 
 # Mostrar menu y solicitar opcion
 def menu():
-    menu = f"""\nMenu de opciones
+    cad_menu = f"""\nMenu de opciones
         {"-" * 50}
         1. Cargar proyectos
         2. Filtrar por tag
@@ -20,24 +20,13 @@ def menu():
         {"-" * 50}
         Ingrese opcion...
         """
-    print(menu)
+    print(cad_menu)
     op = validar_entre(1, 8)
 
     return op
 
 
-def mostrar_matriz_popularidad(mat):
-    print("Resumen de Popularidad")
-    print("{:3}|{:10}|{:10}|{:10}|{:10}|{:10}".format("Mes", "0-10", "10-20", "20-30", "30-40", "40-♾️"))
-    print("-" * 60)
-
-    for i in range(len(mat)):
-        print("{:3}|".format(i + 1), end="")
-        for j in range(len(mat[i])):
-            print("{:10}|".format(mat[i][j]), end="")
-        print()
-
-
+# Filtrar por TAG y permitir guardar
 def opcion2(vec_proyectos):
     tag = solicitar_cadena("Tag que Desea Buscar:   ")
     coincidencias = buscar_por_tag(tag, vec_proyectos)
@@ -59,6 +48,7 @@ def opcion2(vec_proyectos):
         print('\nNo hay ningun elemento con ese Tag...\n')
 
 
+# Mostrar lista por lenguaje
 def opcion3(vec_proyectos):
     box = discriminar_lenguajes(vec_proyectos)
     ordenar_lista_listas(box, 1, False)
@@ -72,8 +62,10 @@ def opcion4(mat_populares, vec_proyectos):
     print("\n Ingrese el del que desea ver la suma de popularidad: ")
     mes = validar_entre(1, 12) - 1
     print("\nLa suma de popularidad del mes {} es: {}".format(mes + 1, sum(mat_populares[mes])))
+    return mat_populares
 
 
+# Buscar por repositorio y actualizar URL y fecha
 def opcion_5(vec_proy, repo):
     n = len(vec_proy)
     for i in range(n):
@@ -89,6 +81,7 @@ def opcion_5(vec_proy, repo):
     print("\nNo se encontro el repositorio...")
 
 
+# Guardar tabla de popularidad en archivo
 def opcion6(mat_populares):
     if len(mat_populares) == 0:
         print("\nNo se ha generado el resumen de popularidad. Vaya a la opcion 4")
@@ -98,7 +91,8 @@ def opcion6(mat_populares):
         print("\nSe ha guardado el archivo de popularidad")
 
 
-def opcion7(mat_populares):
+# Mostrar archivo guardado
+def opcion7():
     print("\nLeyendo archivo...")
     pops = leer_populares()
 
@@ -110,9 +104,8 @@ def opcion7(mat_populares):
 
     for pop in pops:
         mat[pop.mes - 1][pop.estrellas - 1] = pop.cant_proy
-            
-    mat_populares = mat
-    mostrar_matriz_popularidad(mat_populares)
+
+    mostrar_matriz_popularidad(mat)
 
 
 def principal():
@@ -141,7 +134,7 @@ def principal():
                 opcion3(vec_proyectos)
 
             elif opc == 4:
-                opcion4(mat_populares, vec_proyectos)
+                mat_populares = opcion4(vec_proyectos)
 
             elif opc == 5:
                 rep = solicitar_cadena("Ingrese nombre del repositorio buscado: ")
@@ -150,9 +143,10 @@ def principal():
             elif opc == 6:
                 opcion6(mat_populares)
 
-        elif opc == 7:
-            opcion7(mat_populares)
-        else:
+        if opc == 7:
+            opcion7()
+
+        elif len(vec_proyectos) == 0:
             print("\nNo hay proyectos cargados aún. Por favor, cargue proyectos primero. (Opcion 1) \n")
     
         input("\nPulse enter para continuar...")
